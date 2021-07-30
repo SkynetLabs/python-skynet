@@ -5,11 +5,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="siaskynet",
-    version="2.2.0",
+    version="2.3.0",
     author="Peter-Jan Brone",
     author_email="peterjan.brone@gmail.com",
     description="Skynet SDK",
-    url="https://github.com/NebulousLabs/python-skynet",
+    url="https://github.com/SkynetLabs/python-skynet",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),

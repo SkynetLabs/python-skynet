@@ -20,9 +20,6 @@ def default_options(endpoint_path):
 def default_portal_url():
     """DefaultPortalURL intelligently selects a default portal."""
 
-    # TODO: This will be smarter. See
-    # https://github.com/NebulousLabs/skynet-docs/issues/21.
-
     return default_skynet_portal_url()
 
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.0]
+
+### Added
+
+- Fixed `get_metadata`.
+
 ## [2.2.0]
 
 _This release adds Windows support._
