@@ -25,12 +25,13 @@ def test_download_file():
 
     # Download a file.
 
-    dst_file = tempfile.NamedTemporaryFile().name
-    print("Downloading to "+dst_file)
-    client.download_file(dst_file, SKYLINK)
-    if not filecmp.cmp(src_file, dst_file):
-        sys.exit("ERROR: Downloaded file at "+dst_file +
-                 " did not equal uploaded file "+src_file)
+    with tempfile.NamedTemporaryFile() as handle:
+        dst_file = handle.name
+        print("Downloading to "+dst_file)
+        client.download_file(dst_file, SKYLINK)
+        if not filecmp.cmp(src_file, dst_file):
+            sys.exit("ERROR: Downloaded file at "+dst_file +
+                     " did not equal uploaded file "+src_file)
 
     print("File download successful")
 

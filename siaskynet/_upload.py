@@ -24,7 +24,6 @@ def upload(self, upload_data, custom_opts=None):
 
     response = self.upload_request(upload_data, custom_opts)
     sia_url = utils.uri_skynet_prefix() + response.json()["skylink"]
-    response.close()
     return sia_url
 
 
@@ -50,17 +49,13 @@ def upload_request(self, upload_data, custom_opts=None):
         fieldname = opts['portal_directory_file_fieldname']
         filename = opts['custom_dirname']
 
-    params = {
-        # 'skykeyname': opts['skykey_name'],
-        # 'skykeyid': opts['skyket_id'],
-    }
+    params = {}
     if filename:
         params['filename'] = filename
 
     ftuples = []
     for filename, data in upload_data.items():
-        ftuples.append((fieldname,
-                        (filename, data)))
+        ftuples.append((fieldname, (filename, data)))
 
     if issinglefile:
         filename, data = ftuples[0][1]
@@ -85,7 +80,6 @@ def upload_file(self, path, custom_opts=None):
 
     response = self.upload_file_request(path, custom_opts)
     sia_url = utils.uri_skynet_prefix() + response.json()["skylink"]
-    response.close()
     return sia_url
 
 
@@ -131,7 +125,6 @@ def upload_file_with_chunks(self, chunks, custom_opts=None):
 
     response = self.upload_file_request_with_chunks(chunks, custom_opts)
     sia_url = utils.uri_skynet_prefix() + response.json()["skylink"]
-    response.close()
     return sia_url
 
 
@@ -168,7 +161,6 @@ def upload_directory(self, path, custom_opts=None):
 
     response = self.upload_directory_request(path, custom_opts)
     sia_url = utils.uri_skynet_prefix() + response.json()["skylink"]
-    response.close()
     return sia_url
 
 
@@ -191,7 +183,8 @@ def upload_directory_request(self, path, custom_opts=None):
     basepath = path if path == '/' else path + '/'
     for filepath in utils.walk_directory(path):
         assert filepath.startswith(basepath)
-        upload_data[filepath[len(basepath):]] = open(filepath, 'rb')
+        with open(filepath, 'rb') as handle:
+            upload_data[filepath[len(basepath):]] = handle.read()
 
     if not opts['custom_dirname']:
         opts['custom_dirname'] = path

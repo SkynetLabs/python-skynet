@@ -1,7 +1,6 @@
 """Skynet download API.
 """
 
-import json
 import os
 
 from . import utils
@@ -28,8 +27,8 @@ def download_file(self, path, skylink, custom_opts=None):
 
     path = os.path.normpath(path)
     response = self.download_file_request(skylink, custom_opts)
-    open(path, 'wb').write(response.content)
-    response.close()
+    with open(path, 'wb') as handle:
+        handle.write(response.content)
 
 
 def download_file_request(self, skylink, custom_opts=None, stream=False):
@@ -55,7 +54,6 @@ def get_metadata(self, skylink, custom_opts=None):
     """Downloads metadata from given skylink."""
 
     response = self.get_metadata_request(skylink, custom_opts)
-    print(response)
     return response.json()
 
 
