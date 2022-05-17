@@ -140,6 +140,33 @@ def test_upload_file_api_key():
 
 
 @responses.activate
+def test_upload_file_skynet_api_key():
+    """Test uploading a file with authorization."""
+
+    src_file = "./testdata/file1"
+
+    # Upload a file with an API password set.
+
+    responses.add_callback(
+        responses.POST,
+        "https://siasky.net/skynet/skyfile",
+        callback=response_callback
+    )
+
+    print("Uploading file "+src_file)
+    sialink2 = client.upload_file(src_file, {"skynet_api_key": "foobar"})
+    if SIALINK != sialink2:
+        sys.exit("ERROR: expected returned sialink "+SIALINK +
+                 ", received "+sialink2)
+    print("File upload successful, sialink: " + sialink2)
+
+    headers = responses.calls[0].request.headers
+    assert headers["Skynet-Api-Key"] == "foobar"
+
+    assert len(responses.calls) == 1
+
+
+@responses.activate
 def test_upload_file_custom_user_agent():
     """Test uploading a file with authorization."""
 

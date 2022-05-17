@@ -12,6 +12,7 @@ def default_options(endpoint_path):
         'endpoint_path': endpoint_path,
 
         'api_key': None,
+        'skynet_api_key': None,
         'custom_user_agent': None,
         "timeout_seconds": None,
     }
