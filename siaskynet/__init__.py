@@ -56,6 +56,11 @@ class SkynetClient():
             headers["User-Agent"] = opts["custom_user_agent"]
             kwargs["headers"] = headers
 
+        if opts["skynet_api_key"] is not None:
+            headers = kwargs.get("headers", {})
+            headers["Skynet-Api-Key"] = opts["skynet_api_key"]
+            kwargs["headers"] = headers
+
         if opts["timeout_seconds"] is not None:
             kwargs["timeout"] = opts["timeout_seconds"]
 
