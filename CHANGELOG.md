@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.4.0]
+
+### Added
+
+- Added Skynet Api Key support (`skynet_api_key`).
+
 ## [2.3.0]
 
 ### Added
