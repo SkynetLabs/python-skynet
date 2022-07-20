@@ -19,10 +19,6 @@ class SkynetClient():
         download_file, download_file_request, get_metadata,
         get_metadata_request
     )
-    from ._encryption import (
-        add_skykey, create_skykey, get_skykey_by_id, get_skykey_by_name,
-        get_skykeys
-    )
     from ._upload import (
         upload, upload_request,
         upload_file, upload_file_request,
